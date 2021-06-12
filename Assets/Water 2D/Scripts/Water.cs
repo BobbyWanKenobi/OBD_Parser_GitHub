@@ -61,12 +61,12 @@ public class Water : MonoBehaviour {
         //}
     }
 
-    public void Drav_Line(int id, int lineNO, int totalNoLines)
+    public void Drav_Line(int id, int lineNO, int totalNoLines, float thicknes = 0.3f)
     {
         parser = Parser.parseInstr;
 
         //Spawning our Line
-        Spawn_Line(Left_param, Width_param, Top_param, Bottom_param, parser.OBD_Data.GetLength(0));
+        Spawn_Line(Left_param, Width_param, Top_param, Bottom_param, parser.OBD_Data.GetLength(0), thicknes);
         Set_Line_Color(lineNO);
         parser.Lines_List.Add(this.gameObject);
 
@@ -103,7 +103,7 @@ public class Water : MonoBehaviour {
             "  > minVal = " + minVal + "  > maxVal = " + maxVal + "  > camSize = " + Camera.main.orthographicSize);
     }
 
-    void Spawn_Line(float Left, float Width, float Top, float Bottom, int pointsNo)
+    void Spawn_Line(float Left, float Width, float Top, float Bottom, int pointsNo, float thicknes = 0.3f)
     {
         //Calculating the number of edges and nodes we have
         int edgecount = pointsNo - 1;    //Mathf.RoundToInt(Width) /** 5*/;
@@ -115,8 +115,8 @@ public class Water : MonoBehaviour {
         Body.material.renderQueue = 1000;
         Body.positionCount = nodecount;
         //Body.SetWidth(0.1f, 0.1f);
-        Body.startWidth = 0.3f;
-        Body.endWidth = 0.3f;
+        Body.startWidth = thicknes;
+        Body.endWidth = thicknes;
 
         //Declare our physics arrays
         xpositions = new float[nodecount];

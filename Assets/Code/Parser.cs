@@ -181,6 +181,8 @@ public class Parser : MonoBehaviour
             tmp.GetComponent<Chose_Value_BTN>().Set_Button(OBD_Header[x].ID, str);
             Buttons_List.Add(tmp);
         }
+
+        Select_Deselect_All_Buttons(false);
     }
 
     void Parse_Data(string[] str)
@@ -328,7 +330,9 @@ public class Parser : MonoBehaviour
     public void Select_Deselect_All_Buttons(bool isSelected)
     {
         for (int x = 0; x < Buttons_List.Count; x++)
+        {
             Buttons_List[x].GetComponent<Chose_Value_BTN>().Select_Unselect(isSelected);
+        }
     }
 
     public void Destroy_All_Buttons()
@@ -370,7 +374,12 @@ public class Parser : MonoBehaviour
             {
                 GameObject obj = Instantiate(Line);
                 obj.transform.position = Vector3.zero;
-                obj.GetComponent<Water>().Drav_Line(x, lineNo, count);
+
+                if (Buttons_List[x].GetComponent<Chose_Value_BTN>().thicker)
+                    obj.GetComponent<Water>().Drav_Line(x, lineNo, count, 0.6f);
+                else
+                    obj.GetComponent<Water>().Drav_Line(x, lineNo, count);
+
                 lineNo++;
             }
         }

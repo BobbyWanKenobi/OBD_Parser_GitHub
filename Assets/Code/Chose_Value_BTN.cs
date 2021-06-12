@@ -15,11 +15,13 @@ public class Chose_Value_BTN : MonoBehaviour
     [SerializeField] Image Button_Image = null;
     [SerializeField] Text Button_Text = null;
     [SerializeField] Transform Parent = null;
+    [SerializeField] Image Button_Thickness_Image = null;
     [SerializeField] Parser parser = null;
 
     [Header("Variables")]
     public int ID = 0;
     public bool selected = true;
+    public bool thicker = false;
 
 
     // Start is called before the first frame update
@@ -45,14 +47,24 @@ public class Chose_Value_BTN : MonoBehaviour
         //Set scale
         transform.localScale = Vector3.one;
 
+        //Thickness
+        thicker = false;
+
         Set_Button_Color();
+        Set_Button_Thickness_Color();
     }
 
     public void Button_Pressed()
     {
         selected = !selected;
-
         Set_Button_Color();
+        Set_Button_Thickness_Color();
+    }
+
+    public void Button_Thicknes_Pressed()
+    {
+        thicker = !thicker;
+        Set_Button_Thickness_Color();
     }
 
     public void Select_Unselect(bool isselected)
@@ -66,11 +78,24 @@ public class Chose_Value_BTN : MonoBehaviour
     {
         if (selected)
         {
-            Button_Image.color = Color.green;
+            Button_Image.color = new Color(1.0f, 0.7f, 0.0f);
         }
         else
         {
-            Button_Image.color = Color.red;
+            Button_Image.color = Color.green;
+            thicker = false;
+        }
+    }
+
+    void Set_Button_Thickness_Color()
+    {
+        if (thicker)
+        {
+            Button_Thickness_Image.color = new Color(1.0f, 0.7f, 0.0f);
+        }
+        else
+        {
+            Button_Thickness_Image.color = Color.green;
         }
     }
 }
